@@ -6,6 +6,7 @@ import javax.management.MBeanServer;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DumpUtils {
     private static final String DUMP_PREFIX = "dump-";
