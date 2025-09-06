@@ -7,6 +7,22 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Scenario5ClassLoaderLeak
+ * Demonstrates ClassLoader memory leak (common in web apps or plugin systems).
+ * <p>
+ * Background:
+ * Each web application or plugin may load classes with its own ClassLoader.
+ * If references to instances loaded by that ClassLoader are stored statically,
+ * then entire ClassLoader cannot be garbage collected.
+ * <p>
+ * Cause:
+ * Instances loaded by custom ClassLoaders are stored in a static registry.
+ * ClassLoaders and their classes remain referenced -> memory leak.
+ * <p>
+ * Learning:
+ * Shows how to detect ClassLoader leaks in MAT using Dominator Tree and GC Root analysis.
+ */
 public class Scenario5ClassLoaderLeak implements IDumpScenario {
 
     @Override
