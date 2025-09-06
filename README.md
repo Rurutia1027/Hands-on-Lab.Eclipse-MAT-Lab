@@ -9,6 +9,83 @@ No complex setup required-just run and start analyzing.
 - Automatically triggers multiple exception/memory leak scenarios
 - Generates `.dump` files ready for MAT analysis
 
+## Project Structure Introduction 
+### Package Structure 
+```
+Hands-on-Lab.MAT-Eclipse/
+│
+├─ src/
+│   ├─ main/
+│   │   ├─ java/
+│   │   │   └─ com/
+│   │   │       └─handson/
+│   │   │           └─ matdemo/
+│   │   │               ├─ Main.java          # Entry point, runs all or selected scenarios
+│   │   │               ├─ scenario/
+│   │   │               │   ├─ Scenario1.java  # e.g., heap leak
+│   │   │               │   ├─ Scenario2.java  # e.g., deadlock
+│   │   │               │   └─ Scenario3.java  # e.g., exception triggers
+│   │   │               └─ util/
+│   │   │                   └─ DumpUtils.java  # Helper for generating .dump files
+│   │   └─ resources/
+│   │       └─ config.properties                # Optional scenario configs
+│   └─ test/
+│       └─ java/...
+│
+├─ dumps/                  # Generated .dump files
+│   ├─ scenario-1/
+│   │   └─ heapleak.dump
+│   ├─ scenario-2/
+│   │   └─ deadlock.dump
+│   └─ scenario-3/
+│       └─ exception.dump
+│
+├─ pom.xml                 # Maven project + Jib configuration
+└─ README.md
+```
+
+### Java Package Design 
+Base package: com.handson.matdemo
+**`Main.java`**
+- Runs all or selected scenarios
+- Calls each `DumpScenario` implementation
+
+**scenario package**
+- Each scenario implements a common interface
+```java
+public interface DumpScenario {
+    void run(String outputDir); 
+}
+```
+- Each scenario output is its `.dump` to its own folder in `dumps/`
+
+**util package**
+- `DumpUtils.java` handles:
+1. Creating output directories
+2. Generating `.dump` files
+3. Naming files (e.g., timestamps, scenario names)
+
+### `.dump` File Organization 
+
+**Separate by scenario**
+```
+dumps/scenario-1/heapleak.dump
+dumps/scenario-2/deadlock.dump
+dumps/scenario-3/exception.dump
+```
+
+**Optional: include timestamp in filename to avoid overwriting**
+```
+dumps/scenario-1/heapleak-2025-09-06T14-30.dump
+```
+- Clear hierarchy makes it **MAT-friendly** and easy to use in hands-on tutorials
+
+### Execution Flow 
+
+
+
+
+
 ## Quick Start 
 
 ### Run with Docker
