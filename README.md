@@ -81,10 +81,21 @@ dumps/scenario-1/heapleak-2025-09-06T14-30.dump
 - Clear hierarchy makes it **MAT-friendly** and easy to use in hands-on tutorials
 
 ### Execution Flow 
+**Run the Jib-built image**
+```bash
+docker run --rm -v $(pwd)/dumps:/app/dumps mat-hands-on:latest
+```
 
-
-
-
+**`Main.java` calls each scenario class**
+- Creates output folder if missing
+- Runs the scenario logic (heap leak, deadlock, exceptions, etc.)
+- Generates `.dump` file via `DumpUtils`
+  
+**Prints summary**
+```
+Scenario 1: heap leak -> dumps/scenario-1/heapleak.dump
+Scenario 2: deadlock -> dumps/scenario-2/deadlock.dump
+```
 
 ## Quick Start 
 
